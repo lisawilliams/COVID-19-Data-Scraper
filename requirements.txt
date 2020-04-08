@@ -1,0 +1,3 @@
+tabula-py
+bs4
+dryscrape
