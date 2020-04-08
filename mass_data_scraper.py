@@ -23,7 +23,3 @@ for _,link in enumerate(content('a')):
                     table.rename(columns={'Unnamed: 0':'Cases'}, inplace=True)
                     finalData.append(table.to_json(orient='records'))
                 print(json.dumps(finalData))
-
-
-
-
