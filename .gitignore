@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 
 # Internal
-*.ipynb
 *.pdf
 .DS_store
 
