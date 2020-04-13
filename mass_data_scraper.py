@@ -8,11 +8,10 @@ rootURL = "https://www.mass.gov"
 response = requests.get(url)
 content = BeautifulSoup(response.content, "html.parser")
 template_path = "covid-19-case-report.tabula-template.json"
-finalData = []
 for _,link in enumerate(content('a')):
     if link.has_attr('href'):
         if link.get('href').endswith('/download'):
-            if link.string.startswith('COVID-19 Cases in Massachusetts'):
+            if link.string.endswith('2020'):
                 r = requests.get(rootURL + link.get('href'))
                 with open('COVID_data.pdf', 'wb') as outfile:
                     outfile.write(r.content)
@@ -21,5 +20,4 @@ for _,link in enumerate(content('a')):
                     table.dropna(inplace=True)
                     table.rename(columns={'Total Patients':'Total Patients Positive'}, inplace=True)
                     table.rename(columns={'Unnamed: 0':'Cases'}, inplace=True)
-                    finalData.append(table.to_json(orient='records'))
-                print(json.dumps(finalData))
+                    table.to_csv(f'{table.columns[0]}.csv',index=False)
